@@ -1,15 +1,69 @@
-# sound_manager
 
-A new Flutter plugin project.
+# SoundManager Flutter Plugin
 
-## Getting Started
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-yellow)](https://buymeacoffee.com/ahmtydn)
+![ViewCount](https://views.whatilearened.today/views/github/your-repo/sound_manager.svg)
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## Description
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The `SoundManager` plugin provides functionality to manage the volume of applications on a Windows platform. It allows you to mute applications, set the volume for specific applications, and control the volume of all applications except a specified one.
 
+## Features
+
+- **Stop other players**: Mutes all audio on the system.
+- **Mute application**: Mutes a specific application by its name.
+- **Set volume**: Sets the volume for a specific application.
+- **Set volume for all except**: Sets the volume for all applications except a specified one.
+- **Reset volume**: Restores the original volume levels of all applications.
+
+## Installation
+
+Add the following to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  sound_manager: ^0.0.1
+```
+
+## Usage
+
+Import the `SoundManager` class:
+
+```dart
+import 'package:sound_manager/sound_manager.dart';
+```
+
+### Example
+
+```dart
+void main() {
+  final soundManager = SoundManager();
+
+  // Stop all other audio players
+  soundManager.stop();
+
+  // Mute a specific application
+  soundManager.muteApplication("ApplicationName");
+
+  // Set the volume of a specific application
+  soundManager.setVolume("ApplicationName", 0.5);
+
+  // Set the volume of all applications except a specific one
+  soundManager.setVolumeForAllExcept("ApplicationName", 0.2);
+
+  // Reset the volume of all applications to their original levels
+  soundManager.resetVolume();
+}
+```
+
+## Platform Support
+
+Currently, this plugin supports only the Windows platform.
+
+## Contributions
+
+Contributions are welcome! Please submit a pull request or open an issue to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
