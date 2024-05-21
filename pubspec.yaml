@@ -1,7 +1,7 @@
 name: sound_manager
-description: A new Flutter plugin project.
+description: The SoundManager plugin provides functionality to manage the volume of applications on a Windows platform. It allows you to mute applications, set the volume for specific applications, and control the volume of all applications except a specified one.
 version: 0.0.1
-homepage: "www.ahmetaydin.dev"
+homepage: "https://ahmetaydin.dev"
 repository: "https://github.com/ahmtydn/sound_manager"
 
 environment:
@@ -23,7 +23,3 @@ flutter:
     platforms:
       windows:
         pluginClass: SoundManagerPluginCApi
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-  
