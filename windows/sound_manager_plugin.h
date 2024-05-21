@@ -25,6 +25,11 @@ class SoundManagerPlugin : public flutter::Plugin {
   void HandleMethodCall(
       const flutter::MethodCall<flutter::EncodableValue> &method_call,
       std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
+  void stopOtherPlayers();
+  void muteApplication(const std::wstring &app_name);
+  void setVolume(const std::wstring &app_name, float volume);
+  void setVolumeForAllExcept(const std::wstring &app_name, float volume);
+  void restoreOriginalVolumes();
 };
 
 }  // namespace sound_manager

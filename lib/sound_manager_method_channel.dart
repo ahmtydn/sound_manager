@@ -10,8 +10,30 @@ class MethodChannelSoundManager extends SoundManagerPlatform {
   final methodChannel = const MethodChannel('sound_manager');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<void> stop() async {
+    await methodChannel.invokeMethod<void>('stopOtherPlayers');
+  }
+
+  @override
+  Future<void> muteApplication(String appName) async {
+    await methodChannel
+        .invokeMethod<void>('muteApplication', {'app_name': appName});
+  }
+
+  @override
+  Future<void> setVolume(String appName, double volume) async {
+    await methodChannel.invokeMethod<void>(
+        'setVolume', {'app_name': appName, 'volume': volume});
+  }
+
+  @override
+  Future<void> setVolumeForAllExcept(String appName, double volume) async {
+    await methodChannel.invokeMethod<void>(
+        'setVolumeForAllExcept', {'app_name': appName, 'volume': volume});
+  }
+
+  @override
+  Future<void> resetVolume() async {
+    await methodChannel.invokeMethod<void>('restoreOriginalVolumes');
   }
 }

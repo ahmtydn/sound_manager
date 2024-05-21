@@ -23,7 +23,24 @@ abstract class SoundManagerPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<void> stop() {
+    throw UnimplementedError('stop() has not been implemented.');
+  }
+
+  Future<void> muteApplication(String appName) {
+    throw UnimplementedError('muteApplication() has not been implemented.');
+  }
+
+  Future<void> setVolumeForAllExcept(String appName, double volume) {
+    throw UnimplementedError(
+        'setVolumeForAllExcept() has not been implemented.');
+  }
+
+  Future<void> setVolume(String appName, double volume) {
+    throw UnimplementedError('setVolume() has not been implemented.');
+  }
+
+  Future<void> resetVolume() {
+    throw UnimplementedError('resetVolume() has not been implemented.');
   }
 }
