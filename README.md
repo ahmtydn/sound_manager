@@ -22,7 +22,7 @@ Add the following to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  sound_manager: ^0.0.1
+  sound_manager: ^0.0.2
 ```
 
 ## Usage

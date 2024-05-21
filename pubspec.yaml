@@ -1,6 +1,6 @@
 name: sound_manager
 description: The SoundManager plugin provides functionality to manage the volume of applications on a Windows platform. It allows you to mute applications, set the volume for specific applications, and control the volume of all applications except a specified one.
-version: 0.0.1
+version: 0.0.2
 homepage: "https://ahmetaydin.dev"
 repository: "https://github.com/ahmtydn/sound_manager"
 
