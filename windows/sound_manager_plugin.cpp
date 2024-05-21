@@ -1,20 +1,29 @@
 #include "sound_manager_plugin.h"
-
-// This must be included before many other Windows headers.
 #include <windows.h>
-
-// For getPlatformVersion; remove unless needed for your plugin implementation.
 #include <VersionHelpers.h>
 
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
 #include <flutter/standard_method_codec.h>
+#include <endpointvolume.h>
+#include <mmdeviceapi.h>
+#include <audiopolicy.h>
+#include <propvarutil.h>
+#include <functiondiscoverykeys_devpkey.h>
+#include <Psapi.h>
 
 #include <memory>
 #include <sstream>
+#include <comdef.h>
+#include <unordered_map>
+
+#pragma comment(lib, "Psapi.lib")
 
 namespace sound_manager
 {
+
+  // Static map to store original volume levels
+  static std::unordered_map<DWORD, float> original_volume_levels;
 
   // static
   void SoundManagerPlugin::RegisterWithRegistrar(

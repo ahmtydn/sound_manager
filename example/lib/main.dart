@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:sound_manager/sound_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,30 +31,37 @@ class MyButton extends StatefulWidget {
   State<MyButton> createState() => _MyButtonState();
 }
 
-class _MyButtonState extends State<MyButton>
-    with SingleTickerProviderStateMixin {
+class _MyButtonState extends State<MyButton> {
   final ValueNotifier<bool> loading = ValueNotifier<bool>(false);
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    )..repeat(reverse: true);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  final audioManagerPlugin = SoundManager();
+  final AudioPlayer soundPlayer = AudioPlayer();
 
   Future<void> _onButtonPressed() async {
     loading.value = true;
-    await Future.delayed(const Duration(seconds: 5));
-    loading.value = false;
+    await audioManagerPlugin.setVolumeForAllExcept(
+        "sound_manager_example.exe", 0.0);
+    soundPlayer.setAsset("assets/sounds/sound1.mp3");
+
+    int playCount = 0;
+
+    soundPlayer.playerStateStream.listen((event) async {
+      if (event.processingState == ProcessingState.completed &&
+          playCount <= 3) {
+        playCount++;
+        if (playCount <= 3) {
+          await soundPlayer.seek(Duration.zero);
+          await soundPlayer.setVolume(1.0);
+          await soundPlayer.play();
+        } else {
+          await Future.delayed(const Duration(seconds: 2));
+          await audioManagerPlugin.resetVolume();
+          loading.value = false;
+        }
+      }
+    });
+    await soundPlayer.seek(Duration.zero);
+    await soundPlayer.setVolume(1.0);
+    await soundPlayer.play();
   }
 
   @override
@@ -60,24 +69,21 @@ class _MyButtonState extends State<MyButton>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.play_arrow),
-          iconSize: 100.0,
-          onPressed: _onButtonPressed,
-        ),
         ValueListenableBuilder(
           valueListenable: loading,
           builder: (context, value, child) {
-            return AnimatedBuilder(
-              animation: _controller,
-              child: const Icon(Icons.notifications, size: 100.0),
-              builder: (BuildContext context, Widget? widget) {
-                return Transform.rotate(
-                  angle: value ? _controller.value * 0.02 : 0,
-                  child: widget!,
-                );
-              },
-            );
+            return loading.value
+                ? const Icon(
+                    Icons.notifications_active,
+                    size: 100,
+                  )
+                : InkWell(
+                    onTap: _onButtonPressed,
+                    child: const Icon(
+                      Icons.play_arrow,
+                      size: 100,
+                    ),
+                  );
           },
         ),
       ],
