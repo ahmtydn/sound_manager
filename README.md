@@ -8,13 +8,8 @@
 
 The `SoundManager` plugin provides functionality to manage the volume of applications on a Windows platform. It allows you to mute applications, set the volume for specific applications, and control the volume of all applications except a specified one.
 
-## Features
+![SoundManager Flutter Plugin - visual selection](https://github.com/user-attachments/assets/a93303e6-7937-48c7-9b69-2a02976602bb)
 
-- **Stop other players**: Mutes all audio on the system.
-- **Mute application**: Mutes a specific application by its name.
-- **Set volume**: Sets the volume for a specific application.
-- **Set volume for all except**: Sets the volume for all applications except a specified one.
-- **Reset volume**: Restores the original volume levels of all applications.
 
 ## Installation
 
